@@ -8,15 +8,14 @@
 **getopt** Format Tokens
 
 ## 설명
-**getopt** 명령은 예상되는 플래그와 인수를 지정하는 형식을 사용하여 토큰 리스트를 구문 분석합니다. 플래그는 단일 ASCII 문자이며 뒤에 :(콜론)이 올 경우 하나 이상의 탭 또는 공백으로 분리하거나 분리할 수 없는 인수가 있어야 합니다. 인수에는 복수 바이트를 포함시킬 수 있지만 플래그 문자로는 포함시킬 수 없습니다.
-**getopt** 명령은 모든 토큰을 읽은 후 또는 특수 토큰 -(더블 하이픈)이 발생하는 경우 처리를 완료합니다. 그러면 **getopt** 명령은 처리된 플래그, -(더블 하이픈) 및 남아 있는 토큰을 출력합니다.
+**getopt** 명령은 예상되는 플래그와 인수를 지정하는 형식을 사용하여 토큰 리스트를 구문 분석한다. 플래그는 단일 ASCII 문자이며 뒤에 :(콜론)이 올 경우 하나 이상의 탭 또는 공백으로 분리하거나 분리할 수 없는 인수가 있어야 한다. 인수에는 복수 바이트를 포함시킬 수 있지만 플래그 문자로는 포함시킬 수 없다.
+**getopt** 명령은 모든 토큰을 읽은 후 또는 특수 토큰 -(더블 하이픈)이 발생하는 경우 처리를 완료한다. 그러면 **getopt** 명령은 처리된 플래그, -(더블 하이픈) 및 남아 있는 토큰을 출력.
 
-토큰이 플래그와 일치하는 데 실패하는 경우 **getopt** 명령은 메시지를 표준 오류에 기록합니다.
+토큰이 플래그와 일치하는 데 실패하는 경우 **getopt** 명령은 메시지를 표준 오류에 기록.
 
 ## Short 옵션 특징
 * '-'로 시작하는 short한 옵션
- 
-  * -p
+   * -p
 
 * 여러가지 방법으로 사용가능
 * 순서에 상관없음
@@ -31,9 +30,76 @@
     
     
 ## long 옵션 특징
-
+* '--'가 붙은 long 옵션
+   * --posix,--wrning level 등
 
 ## getopt사용
+1) short option은 '-o'를 사용하여 아래와 같이 사용한다.
+
+   1)-1 option은 그냥 나열하면 된다.
+  
+   1)-2 argument를 가지는 옵션은 ':'를 뒤에 붙인다.
+ 
+  **getopt -o a:bc # 위의 getopts와 똑같다. -a, -b, -c 를 옵션으로 가지고 -a는 argument가 있다.**
+  
+***
+  
+2) long option은 '-l'을 사용하고 ','로 구분한다.
+
+   2)-1 option은 ','로 구분한다
+  
+   2)-2 argument를 가지는 옵션은 ':'를 뒤에 붙인다.
+ 
+  **getopt -l help,path:,name:**
+  
+  **--help**
+  
+  **--path 'argument'    --path='argument'**
+  
+  **--name 'argument'    --name='argument'**
+
+***
+3) short, long 공통
+
+    3)-1 마지막에 --"$@" 를 붙인다.
+    
+    3)-2  invalid option 이나 argument가 빠진경우 오류메세지를 출력한다.
+    
+
+```shell script
+#!/bin/bash
+
+if ! options=$( getopt -o a:bc -l help,path:,name: -- "$@" )
+then 
+    echo "ERROR: print usage"
+    exit 1
+fi
+
+eval set -- "$options"
+
+while true; do
+    case "$1" in
+        -h|--help)
+            echo >&2 "$1 was triggerd!"
+            shift ;;
+        -p|--path)
+            echo >&2 "$1 was triggered!, OPTARG: $2"
+            shift 2 ;; # 옵션이 argument가 있으므로 shift 2
+        -n|--name)
+            echo >&2 "$1 was triggered!, OPTARG: $2"
+            shift 2 ;;
+        --aaa)
+            echo >& "$1 was triggered!"
+            shift ;;
+        --)
+            shift
+            break
+    esac
+done
+
+echo -------------
+echo "$@"
+```
 
 
 
