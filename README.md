@@ -13,15 +13,28 @@
 
 토큰이 플래그와 일치하는 데 실패하는 경우 **getopt** 명령은 메시지를 표준 오류에 기록합니다.
 
-### 옵션
-Option이란 아래와 같이 Linux 에서 '-'로 시작하는 문자열을 의미합니다.
+## Short 옵션 특징
+* '-'로 시작하는 short한 옵션
+ 
+  * -p
+
+* 여러가지 방법으로 사용가능
+* 순서에 상관없음
+* 옵션 argument를 가질수 있고 붙여 쓸 수 있음
 
 
-$./getopt -a
+    $cmd -a -b -c 
 
-$./getopt -b optarg
+    $cmd -abc
+    
+    $cmd -b -ac
+    
+    
+## long 옵션 특징
 
-$./getopt -b optarg nonopt
+
+## getopt사용
+
 
 
 
