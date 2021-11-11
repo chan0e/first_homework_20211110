@@ -243,13 +243,30 @@ awk 명령으로 아래와 같은 일들을 할수 있다.
 
 ## awk 명령어 사용법
 
+```
+ OPTION
+        -F        : 필드 구분 문자 지정.
+        -f        : awk program 파일 경로 지정.
+        -v        : awk program에서 사용될 특정 variable값 지정.
+      awk program
+        -f 옵션이 사용되지 않은 경우, awk가 실행할 awk program 코드 지정.
+      ARGUMENT
+        입력 파일 지정 또는 variable 값 지정.
+ ```
 
 
 |**awk 사용 예** | 명령어 옵션  |
 |----------------|----------------|
 |파일의 전체 내용 출력|**awk '{ print }' [FILE]**|
 |필드 값 출력|**awk '{ print $1 }' [FILE]**|
-
+|필드 값에 임의 문자열을 같이 출력|**awk '{print "STR"$1, "STR"$2}' [FILE]**|
+|지정된 문자열을 포함하는 레코드만 출력|**awk '/STR/' [FILE]**|
+|특정 필드 값 비교를 통해 선택된 레코드만 출력|**awk '$1 == 10 { print $2 }' [FILE]**|
+|특정 필드들의 합 구하기|**awk '{sum += $3} END { print sum }' [FILE]**|
+|여러 필드들의 합 구하기|**awk '{ for (i=2; i<=NF; i++) total += $i }; END { print "TOTAL : "total }' [FILE]**|
+|레코드 단위로 필드 합 및 평균 값 구하기|**awk '{ sum = 0 } {sum += ($3+$4+$5) } { print $0, sum, sum/3 }' [FILE]**|
+|필드에 연산을 수행한 결과 출력하기|**awk '{print $1, $2, $3+2, $4, $5}' [FILE]**|
+|파일에 저장된 awk program 실행|**awk -f [AWK FILE] [FILE]**|
 
 
 
