@@ -165,3 +165,13 @@ getopts 명령은 error reporting 과 관련해서 다음과 같은 두 개의 �
 |invalid 옵션사용|opt 값을 '?'문자로 설정하고 OPTARG 값은 unset. 오류 메세지를 출력|
 |옵션인수 값을 제공 하지않음|opt값을 '?'문자로 설정하고 OPTARG 값은 unset. 오류 메세지를 출력|
 
+
+|**Silent mode** |  |
+|----------------|---|
+|invalid 옵션사용|opt 값을 '?'문자로 설정하고 OPTARG 값은 해당 옵션 문자로 설정|
+|옵션인수 값을 제공 하지않음|opt값을 '?'문자로 설정하고 OPTARG 값은 해당 옵션 문자로 설정|
+
+
+default 는 verbose mode 인데 기본적으로 옵션과 관련된 오류메시지가 표시되므로 스크립트를 배포할 때는 잘 사용하지 않고 대신 silent mode 를 이용. silent mode 를 설정하기 위해서는 옵션 스트링의 맨 앞부분에 ':' 문자를 추가.
+
+
