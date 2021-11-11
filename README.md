@@ -154,3 +154,14 @@ $ ./test.sh -a xyz -bc hello world
 hello world
 ```
 
+
+## Error reporting
+위 예제에서 옵션 스트링에 없는 문자, 예를 들면 -d 를 사용하게 되면 오류 메시지가 출력되는 것을 볼 수 있는데
+getopts 명령은 error reporting 과 관련해서 다음과 같은 두 개의 모드를 제공한다.
+
+
+|**Verbose mode** |  |
+|----------------|---|
+|invalid 옵션사용|opt 값을 '?'문자로 설정하고 OPTARG 값은 unset. 오류 메세지를 출력|
+|옵션인수 값을 제공 하지않음|opt값을 '?'문자로 설정하고 OPTARG 값은 unset. 오류 메세지를 출력|
+
