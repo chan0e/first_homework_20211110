@@ -13,6 +13,61 @@
 
 토큰이 플래그와 일치하는 데 실패하는 경우 **getopt** 명령은 메시지를 표준 오류에 기록.
 
+
+
+## case로 분류한 코드
+
+```shell script
+#!/bin/bash
+
+if ! options=$( getopt -o a:bc -l help,path:,name: -- "$@" )
+then 
+    echo "ERROR: print usage"
+    exit 1
+fi
+
+eval set -- "$options"
+
+while true; do
+    case "$1" in
+        -h|--help)
+            echo >&2 "$1 was triggerd!"
+            shift ;;
+        -p|--path)
+            echo >&2 "$1 was triggered!, OPTARG: $2"
+            shift 2 ;; # 옵션이 argument가 있으므로 shift 2
+        -n|--name)
+            echo >&2 "$1 was triggered!, OPTARG: $2"
+            shift 2 ;;
+        --aaa)
+            echo >& "$1 was triggered!"
+            shift ;;
+        --)
+            shift
+            break
+    esac
+done
+
+echo -------------
+echo "$@"
+```
+
+
+
+
+# getopts 명령어 
+## 구문
+**getopt** opstsring varname [args...]
+
+![getopts](https://user-images.githubusercontent.com/94053008/141286244-aa801203-9e67-4b2a-8b46-efed2cc46631.png)
+
+[출처 - https://mug896.github.io/bash-shell/getopts.html]
+
+## 설명
+**getopts** 명령은 쉘 에서 명령을 실행할 때 옵션을 사용한다. 스크립트 파일이나 함수를 실행할 때도 동일하게 옵션을 사용할 수 있다. 사용된 옵션은 다른 인수들과 마찬가지로 $1, $2, ... positional parameters 형태로 전달되므로 스크립트 내에서 직접 옵션을 해석해서 사용해야 된다. 이때 옵션 해석 작업을 쉽게 도와주는 명령이 **getopts** 이다.
+
+
+
 ## Short 옵션 특징
 * '-'로 시작하는 short한 옵션
    * -p
@@ -66,51 +121,36 @@
     3)-2  invalid option 이나 argument가 빠진경우 오류메세지를 출력한다.
     
 
+## loop 문을 이용해 처리
+
+
 ```shell script
 #!/bin/bash
 
-if ! options=$( getopt -o a:bc -l help,path:,name: -- "$@" )
-then 
-    echo "ERROR: print usage"
-    exit 1
-fi
-
-eval set -- "$options"
-
-while true; do
-    case "$1" in
-        -h|--help)
-            echo >&2 "$1 was triggerd!"
-            shift ;;
-        -p|--path)
-            echo >&2 "$1 was triggered!, OPTARG: $2"
-            shift 2 ;; # 옵션이 argument가 있으므로 shift 2
-        -n|--name)
-            echo >&2 "$1 was triggered!, OPTARG: $2"
-            shift 2 ;;
-        --aaa)
-            echo >& "$1 was triggered!"
-            shift ;;
-        --)
-            shift
-            break
-    esac
+while getopts "a:bc" opt; do
+  case $opt in
+    a)
+      echo >&2 "-a was triggered!, OPTARG: $OPTARG"
+      ;;
+    b)
+      echo >&2 "-b was triggered!"
+      ;;
+    c)
+      echo >&2 "-c was triggered!"
+      ;;
+  esac
 done
 
-echo -------------
+shift $(( OPTIND - 1 ))
 echo "$@"
 ```
 
+```
+..................................
+$ ./test.sh -a xyz -bc hello world
+-a was triggered!, OPTARG: xyz
+-b was triggered!
+-c was triggered!
+hello world
+```
 
-
-
-# getopts 명령어 
-## 구문
-**getopt** opstsring varname [args...]
-
-![getopts](https://user-images.githubusercontent.com/94053008/141286244-aa801203-9e67-4b2a-8b46-efed2cc46631.png)
-
-[출처 - https://mug896.github.io/bash-shell/getopts.html]
-
-## 설명
-**getopt** 명령은 쉘 에서 명령을 실행할 때 옵션을 사용하는데요. 스크립트 파일이나 함수를 실행할 때도 동일하게 옵션을 사용할 수 있습니다. 사용된 옵션은 다른 인수들과 마찬가지로 $1, $2, ... positional parameters 형태로 전달되므로 스크립트 내에서 직접 옵션을 해석해서 사용해야 됩니다. 이때 옵션 해석 작업을 쉽게 도와주는 명령이 **getopts** 입니다.
