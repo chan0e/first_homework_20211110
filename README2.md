@@ -24,6 +24,7 @@ end: 그 줄에 끝으로 이동
 
 x: 변경된 내용을 저장하고 나감
 
+***
 
 ### #2  문제
 
@@ -42,6 +43,8 @@ $ vimgolf put 603ba26a01b4d00009c10a49
 
 x: 변경된 내용을 저장하고 나감
 
+***
+
 
 ### #3  문제
 
@@ -53,8 +56,7 @@ x: 변경된 내용을 저장하고 나감
 #### 문제풀이
 
 
-
-![image](https://user-images.githubusercontent.com/94053008/144229069-25f24f3d-63d5-40a4-a0ca-180eb90bb1a4.png)
+![image](https://user-images.githubusercontent.com/94053008/144231473-21aa3d0f-e0d3-4b7c-9385-1eb77e4a1c33.png)
 
 
 ctrl + e: 한줄씩 위로 이동
@@ -66,4 +68,26 @@ i: 입력
 yy: 커서가 있는 그 줄의 문장전체를 복사함
 
 p: 커서가 있는곳 아래로 붙여넣기
+
+x: 변경된 내용을 저장하고 나감
+
+***
+
+### #4  문제
+
+
+
+![vim-과제-_4](https://user-images.githubusercontent.com/94053008/144231200-67009acb-8bb5-431b-b9d6-560f9ae73f26.gif)
+
+
+#### 문제풀이
+
+
+![image](https://user-images.githubusercontent.com/94053008/144231990-9edb614a-1cf3-4dc9-ad68-1da6b953f28d.png)
+
+G: 글의 맨끝으로 이동
+
+end: 커서가 있는 행의 맨끝으로 이동
+
+x: 변경된 내용을 저장하고 나감
 
