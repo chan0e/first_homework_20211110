@@ -43,5 +43,27 @@ $ vimgolf put 603ba26a01b4d00009c10a49
 x: 변경된 내용을 저장하고 나감
 
 
+### #3  문제
 
+
+
+![vim-과제-_3](https://user-images.githubusercontent.com/94053008/144228034-cd5cb5f2-2ecd-43a5-8360-d9962c960558.gif)
+
+
+#### 문제풀이
+
+
+
+![image](https://user-images.githubusercontent.com/94053008/144229069-25f24f3d-63d5-40a4-a0ca-180eb90bb1a4.png)
+
+
+ctrl + e: 한줄씩 위로 이동
+
+i: 입력
+
+%s/str/replace_str: 단어를 바꿔줌
+
+yy: 커서가 있는 그 줄의 문장전체를 복사함
+
+p: 커서가 있는곳 아래로 붙여넣기
 
